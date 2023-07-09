@@ -1,0 +1,22 @@
+.game {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-board {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.status {
+  margin-top: 15px;
+  font-size: 20px;
+}
+
+button {
+  margin: 5px;
+}
