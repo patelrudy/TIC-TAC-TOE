@@ -130,7 +130,7 @@ const Game: React.FC = () => {
 
   let status;
   if (!gameStarted) {
-    status = 'Please select game type';
+    status = 'Please select game mode';
   } else {
     const winner = calculateWinner(board);
     if (winner) {
@@ -144,9 +144,10 @@ const Game: React.FC = () => {
 
   return (
     <div className="game">
-      <button onClick={() => handleGameModeChange(false)}>Player vs Player</button>
-      <button onClick={() => handleGameModeChange(true)}>AI vs Player</button>
-      <button onClick={resetGame}>Reset Game</button>
+      <div className="title">Tic Tac Toe</div>
+      <button className="game-mode" onClick={() => handleGameModeChange(false)}>Player vs Player</button>
+      <button className="game-mode" onClick={() => handleGameModeChange(true)}>AI vs Player</button>
+      <button className="reset" onClick={resetGame}>Reset Game</button>
       <div className="game-board">
         {gameStarted && <Board board={board} onClick={handleClick} />}
         <div className="status">{status}</div>
