@@ -1,6 +1,6 @@
 # Tic Tac Toe
 
-A simple Tic Tac Toe game built with React, TypeScript, and CSS.
+A Tic Tac Toe game with Minimax algorithm built with React, TypeScript, and CSS.
 
 ## Introduction
 
