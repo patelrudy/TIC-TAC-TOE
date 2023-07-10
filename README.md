@@ -1,46 +1,38 @@
-# Getting Started with Create React App
+# Tic Tac Toe
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple Tic Tac Toe game built with React, TypeScript, and CSS.
 
-## Available Scripts
+## Introduction
 
-In the project directory, you can run:
+This is a web-based implementation of the classic game Tic Tac Toe. It allows two human players to play against each other or play against an AI player that uses the Minimax algorithm to make intelligent moves.
 
-### `npm start`
+## Game Rules
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- The game is played on a 3x3 grid.
+- Players take turns marking an empty cell with their respective symbol (X or O).
+- The first player to get three of their symbols in a row, column, or diagonal wins the game.
+- If all cells are filled and no player has won, the game is a draw.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## AI Player using Minimax Algorithm
 
-### `npm test`
+In the "AI vs Player" mode, the game uses the Minimax algorithm to determine the best move for the AI player. The Minimax algorithm is a decision-making algorithm used in two-player games. It explores all possible game outcomes by recursively evaluating each move and its potential outcomes, ultimately selecting the move that minimizes the maximum possible loss. This allows the AI player to make optimal moves and play the game strategically.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Features
 
-### `npm run build`
+- Choose between "Player vs Player" or "AI vs Player" game modes.
+- Responsive design and intuitive user interface.
+- Players can enter their names for customization.
+- Status display indicating the current player's turn and game result.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Getting Started
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Clone the repository: `git clone https://github.com/patelrudy/TIC-TAC-TOE.git`
+2. Install dependencies: `cd tic-tac-toe` and `npm install`
+3. Start the development server: `npm start`
+4. Open the game in your web browser: `http://localhost:3000`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Technologies Used
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- React: JavaScript library for building user interfaces.
+- TypeScript: Superset of JavaScript that adds static typing.
+- CSS: Cascading Style Sheets for styling the components.
