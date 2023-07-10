@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import Board from './Board';
 import './Game.css';
 
-const initialBoard: (string | null)[][] = Array(3).fill(null).map(() => Array(3).fill(null));
+const createEmptyBoard = () => Array(3).fill(null).map(() => Array(3).fill(null));
 
 const Game: React.FC = () => {
-  const [board, setBoard] = useState(initialBoard);
+  const [board, setBoard] = useState(createEmptyBoard());
   const [isXNext, setIsXNext] = useState(true);
   const [isAI, setIsAI] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
@@ -33,20 +33,20 @@ const Game: React.FC = () => {
 
   const handleClick = (i: number, j: number) => {
     if (!board[i][j] && !calculateWinner(board)) {
-      const newBoard = board.slice();
+      const newBoard = [...board];
       newBoard[i][j] = isXNext ? 'X' : 'O';
       setBoard(newBoard);
       setIsXNext(!isXNext);
 
-      // If AI mode is enabled, let the AI make its move
-      if (isAI && !calculateWinner(newBoard)) {
+      // If AI mode is enabled, let the AI make its move if there are moves left
+      if (isAI && !calculateWinner(newBoard) && isMovesLeft(newBoard)) {
         const [aiMoveI, aiMoveJ] = findBestMove(newBoard, 'O');
         newBoard[aiMoveI][aiMoveJ] = 'O';
         setBoard(newBoard);
         setIsXNext(true);
       }
     }
-  };
+};
 
   const findBestMove = (board: (string | null)[][], player: string): [number, number] => {
     let bestVal = -1000;
@@ -55,9 +55,9 @@ const Game: React.FC = () => {
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
         if (!board[i][j]) {
-          board[i][j] = player;
-          let moveVal = minimax(board, 0, false);
-          board[i][j] = null;
+          let tempBoard = JSON.parse(JSON.stringify(board)); // Create a copy of the board
+          tempBoard[i][j] = player;
+          let moveVal = minimax(tempBoard, 0, false);
           if (moveVal > bestVal) {
             move = [i, j] as [number, number];
             bestVal = moveVal;
@@ -82,9 +82,9 @@ const Game: React.FC = () => {
       for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
           if (!board[i][j]) {
-            board[i][j] = 'O';
-            best = Math.max(best, minimax(board, depth + 1, !isMax));
-            board[i][j] = null;
+            let tempBoard = JSON.parse(JSON.stringify(board)); // Create a copy of the board
+            tempBoard[i][j] = 'O';
+            best = Math.max(best, minimax(tempBoard, depth + 1, !isMax));
           }
         }
       }
@@ -97,9 +97,9 @@ const Game: React.FC = () => {
       for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
           if (!board[i][j]) {
-            board[i][j] = 'X';
-            best = Math.min(best, minimax(board, depth + 1, !isMax));
-            board[i][j] = null;
+            let tempBoard = JSON.parse(JSON.stringify(board)); // Create a copy of the board
+            tempBoard[i][j] = 'X';
+            best = Math.min(best, minimax(tempBoard, depth + 1, !isMax));
           }
         }
       }
@@ -114,12 +114,19 @@ const Game: React.FC = () => {
     return false;
   };
 
-  const handleGameModeChange = (ai: boolean) => {
-    setBoard(initialBoard);
+   const handleGameModeChange = (ai: boolean) => {
+    setBoard(createEmptyBoard());
     setIsXNext(true);
     setIsAI(ai);
-    setGameStarted(true);  // Add this line
+    setGameStarted(true);
   };
+
+  const resetGame = () => {
+    setBoard(createEmptyBoard());
+    setIsXNext(true);
+    setIsAI(false);
+    setGameStarted(false);
+  }
 
   let status;
   if (!gameStarted) {
@@ -139,6 +146,7 @@ const Game: React.FC = () => {
     <div className="game">
       <button onClick={() => handleGameModeChange(false)}>Player vs Player</button>
       <button onClick={() => handleGameModeChange(true)}>AI vs Player</button>
+      <button onClick={resetGame}>Reset Game</button>
       <div className="game-board">
         {gameStarted && <Board board={board} onClick={handleClick} />}
         <div className="status">{status}</div>
