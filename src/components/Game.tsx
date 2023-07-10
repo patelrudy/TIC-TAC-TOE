@@ -11,7 +11,6 @@ const Game: React.FC = () => {
   const [gameStarted, setGameStarted] = useState(false);
 
   const calculateWinner = (board: (string | null)[][]) => {
-    // win lines 
     const lines = [
       [[0, 0], [0, 1], [0, 2]],
       [[1, 0], [1, 1], [1, 2]],
@@ -38,7 +37,6 @@ const Game: React.FC = () => {
       setBoard(newBoard);
       setIsXNext(!isXNext);
 
-      // If AI mode is enabled, let the AI make its move if there are moves left
       if (isAI && !calculateWinner(newBoard) && isMovesLeft(newBoard)) {
         const [aiMoveI, aiMoveJ] = findBestMove(newBoard, 'O');
         newBoard[aiMoveI][aiMoveJ] = 'O';
@@ -97,7 +95,7 @@ const Game: React.FC = () => {
       for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
           if (!board[i][j]) {
-            let tempBoard = JSON.parse(JSON.stringify(board)); // Create a copy of the board
+            let tempBoard = JSON.parse(JSON.stringify(board));
             tempBoard[i][j] = 'X';
             best = Math.min(best, minimax(tempBoard, depth + 1, !isMax));
           }
